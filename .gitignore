@@ -1,0 +1,14 @@
+**/target
+**/.idea
+**/*.iml
+**/node_modules
+**/logs
+**/tmp
+**/dist
+**/deploy
+.settings
+**/.project
+**/.classpath
+.settings/:
+ 
+ 
