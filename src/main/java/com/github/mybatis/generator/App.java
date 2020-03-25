@@ -8,7 +8,7 @@ import org.mybatis.generator.api.ShellRunner;
  * createDate: 2020-03-19 17:45:36
  * lastModifiedDate:
  *
- * @author aichenchen@eversec.cn
+ * @author Coder_2015@outlook.com
  * @since 1.0.0
  */
 public class App {

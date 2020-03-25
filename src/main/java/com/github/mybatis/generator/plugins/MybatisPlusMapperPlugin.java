@@ -12,7 +12,7 @@ import java.util.List;
  * createDate: 2020-03-24  19:04
  * lastModifiedDate:
  *
- * @author aichenchen@eversec.cn
+ * @author Coder_2015@outlook.com
  * @since 1.0.0
  */
 public class MybatisPlusMapperPlugin extends PluginAdapter {

@@ -17,7 +17,7 @@ import org.mybatis.generator.api.dom.java.TopLevelClass;
  * createDate: 2020-03-19 18:02:02
  * lastModifiedDate:
  *
- * @author aichenchen@eversec.cn
+ * @author Coder_2015@outlook.com
  * @since 1.0.0
  */
 public class SwaggerAnnotationPlugin extends PluginAdapter {

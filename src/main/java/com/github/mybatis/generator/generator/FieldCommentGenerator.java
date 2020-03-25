@@ -17,11 +17,11 @@ import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 
 /**
- * description: FieldCommentGenerator
+ * description: 数据库字段注释
  * createDate: 2020-03-19 18:02:02
  * lastModifiedDate:
  *
- * @author aichenchen@eversec.cn
+ * @author Coder_2015@outlook.com
  * @since 1.0.0
  */
 public class FieldCommentGenerator implements CommentGenerator {
