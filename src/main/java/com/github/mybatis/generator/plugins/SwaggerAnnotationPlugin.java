@@ -13,7 +13,7 @@ import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 
 /**
- * description: 为生成的数据实体添加swagger的@ApiModelProperty注解
+ * description: FieldCommentGenerator
  * createDate: 2020-03-19 18:02:02
  * lastModifiedDate:
  *
@@ -22,34 +22,39 @@ import org.mybatis.generator.api.dom.java.TopLevelClass;
  */
 public class SwaggerAnnotationPlugin extends PluginAdapter {
 
-    public boolean validate(List<String> warnings) {
-        return true;
-    }
-
-    @Override
+	public boolean validate(List<String> warnings) {
+		return true;
+	}
+	
+	@Override
     public boolean modelBaseRecordClassGenerated(TopLevelClass topLevelClass,
-                                                 IntrospectedTable introspectedTable) {
-        if (introspectedTable.getTargetRuntime() == TargetRuntime.MYBATIS3) {
-            topLevelClass.addImportedType(new FullyQualifiedJavaType("io.swagger.annotations.ApiModel"));
-            topLevelClass.addImportedType(new FullyQualifiedJavaType("io.swagger.annotations.ApiModelProperty"));
-            topLevelClass.addAnnotation("@ApiModel");
-        }
+            IntrospectedTable introspectedTable) {
+		if (introspectedTable.getTargetRuntime() == TargetRuntime.MYBATIS3) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("/** ");
+			sb.append(introspectedTable.getRemarks());
+			sb.append(" **/");
+			topLevelClass.addJavaDocLine(sb.toString());
+			topLevelClass.addImportedType(new FullyQualifiedJavaType("io.swagger.annotations.ApiModel"));
+			topLevelClass.addImportedType(new FullyQualifiedJavaType("io.swagger.annotations.ApiModelProperty"));
+			topLevelClass.addAnnotation("@ApiModel");
+		}
         return true;
     }
 
     @Override
     public boolean modelFieldGenerated(Field field,
-                                       TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn,
-                                       IntrospectedTable introspectedTable,
-                                       Plugin.ModelClassType modelClassType) {
-        if (introspectedTable.getTargetRuntime() == TargetRuntime.MYBATIS3) {
-            if (introspectedColumn.getRemarks() != null && introspectedColumn.getRemarks().length() > 0) {
-                field.addAnnotation("@ApiModelProperty(value = \"" + introspectedColumn.getRemarks() + "\")");
-            } else {
-                field.addAnnotation("@ApiModelProperty(value = \"" + introspectedColumn.getActualColumnName() + "\")");
-            }
+            TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn,
+            IntrospectedTable introspectedTable,
+            Plugin.ModelClassType modelClassType) {
+    	if (introspectedTable.getTargetRuntime() == TargetRuntime.MYBATIS3) {
+		    if(introspectedColumn.getRemarks()!=null&&introspectedColumn.getRemarks().length()>0) {
+			    field.addAnnotation("@ApiModelProperty(value = \""+introspectedColumn.getRemarks()+"\")");
+		    }else{
+			    field.addAnnotation("@ApiModelProperty(value = \""+introspectedColumn.getActualColumnName()+"\")");
+		    }
 
-        }
+		}
         return true;
     }
 

@@ -200,7 +200,6 @@ public class MybatisPlusServicePlugin extends PluginAdapter {
         FullyQualifiedJavaType modelJavaType = new FullyQualifiedJavaType(modelName);
         String modelFieldName = Character.toLowerCase(modelName.charAt(0)) + modelName.substring(1);
         String serviceFieldName = modelFieldName + "Service";
-//        serviceFieldName = Character.toLowerCase(serviceFieldName.charAt(0)) + serviceFieldName.substring(1);
 
         Field serviceField = new Field(serviceFieldName, new FullyQualifiedJavaType(modelName + "Service"));
         serviceField.setVisibility(JavaVisibility.PRIVATE);
@@ -210,7 +209,7 @@ public class MybatisPlusServicePlugin extends PluginAdapter {
         Method addMethod = new Method("add");
         addMethod.setVisibility(JavaVisibility.PUBLIC);
         addMethod.addAnnotation("@ApiOperation(value = \"添加\")");
-        addMethod.addAnnotation("@RequestMapping(path = \"\",method = RequestMethod.POST)");
+        addMethod.addAnnotation("@PostMapping(path = \"\")");
         addMethod.setReturnType(new FullyQualifiedJavaType(MessageFormat.format(addMethodReturnType, modelName)));
         Parameter addParameter = new Parameter(modelJavaType, modelFieldName);
         addParameter.addAnnotation("@ModelAttribute");
@@ -222,7 +221,7 @@ public class MybatisPlusServicePlugin extends PluginAdapter {
         Method delMethod = new Method("del");
         delMethod.setVisibility(JavaVisibility.PUBLIC);
         delMethod.addAnnotation("@ApiOperation(value = \"删除\")");
-        delMethod.addAnnotation("@RequestMapping(path = \"/{id}\", method = RequestMethod.DELETE)");
+        delMethod.addAnnotation("@DeleteMapping(path = \"/{id}\")");
         delMethod.setReturnType(new FullyQualifiedJavaType(delMethodReturnType));
         Parameter delParameter = new Parameter(new FullyQualifiedJavaType("Long"), "id");
         delParameter.addAnnotation("@PathVariable");
@@ -234,7 +233,7 @@ public class MybatisPlusServicePlugin extends PluginAdapter {
         Method updateMethod = new Method("update");
         updateMethod.setVisibility(JavaVisibility.PUBLIC);
         updateMethod.addAnnotation("@ApiOperation(value = \"修改\")");
-        updateMethod.addAnnotation("@RequestMapping(path = \"\", method = RequestMethod.PUT)");
+        updateMethod.addAnnotation("@PutMapping(path = \"\")");
         updateMethod.setReturnType(new FullyQualifiedJavaType(MessageFormat.format(updateMethodReturnType, modelName)));
         Parameter updateParameter = new Parameter(modelJavaType, modelFieldName);
         updateParameter.addAnnotation("@ModelAttribute");
@@ -246,12 +245,12 @@ public class MybatisPlusServicePlugin extends PluginAdapter {
         Method getMethod = new Method("find");
         getMethod.setVisibility(JavaVisibility.PUBLIC);
         getMethod.addAnnotation("@ApiOperation(value = \"分页查询\")");
-        getMethod.addAnnotation("@RequestMapping(path = \"\", method = RequestMethod.GET)");
+        getMethod.addAnnotation("@GetMapping(path = \"\")");
         getMethod.setReturnType(new FullyQualifiedJavaType(MessageFormat.format(getMethodReturnType, modelName)));
         Parameter getParameter = new Parameter(new FullyQualifiedJavaType(modelName + "Condition"), "condition");
         getParameter.addAnnotation("@ModelAttribute");
         getMethod.addParameter(getParameter);
-        getMethod.addBodyLine(MessageFormat.format(getMethodBodyLine, serviceField.getName(), getParameter.getName()));
+        getMethod.addBodyLine(MessageFormat.format(getMethodBodyLine, modelFieldName, getParameter.getName()));
         topLevelClass.addMethod(getMethod);
         GeneratedJavaFile generatedJavaFile = new GeneratedJavaFile(topLevelClass, targetProject, null, javaFormatter);
         return generatedJavaFile;
