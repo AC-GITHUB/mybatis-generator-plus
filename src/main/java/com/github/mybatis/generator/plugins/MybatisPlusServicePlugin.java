@@ -186,6 +186,10 @@ public class MybatisPlusServicePlugin extends PluginAdapter {
         topLevelClass.addImportedType("org.springframework.web.bind.annotation.RequestMethod");
         topLevelClass.addImportedType("org.springframework.web.bind.annotation.ModelAttribute");
         topLevelClass.addImportedType("org.springframework.web.bind.annotation.PathVariable");
+        topLevelClass.addImportedType("org.springframework.web.bind.annotation.GetMapping");
+        topLevelClass.addImportedType("org.springframework.web.bind.annotation.DeleteMapping");
+        topLevelClass.addImportedType("org.springframework.web.bind.annotation.PostMapping");
+        topLevelClass.addImportedType("org.springframework.web.bind.annotation.PutMapping");
         topLevelClass.addImportedType("io.swagger.annotations.ApiOperation");
         topLevelClass.addImportedType("io.swagger.annotations.Api");
 
